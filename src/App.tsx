@@ -46,12 +46,12 @@ function App() {
                 Choose province
               </option>
               {provincesLoading ? (
-                <option value='fetching province' hidden>
+                <option value='fetching province'>
                   fetching province
                 </option>
               ) : null}
               {provincesError ? (
-                <option value='error fetching province' hidden>
+                <option value='error fetching province'>
                   error fetching province
                 </option>
               ) : null}
@@ -76,12 +76,12 @@ function App() {
                 Choose city
               </option>
               {citiesLoading ? (
-                <option value='fetching city' hidden>
+                <option value='fetching city'>
                   fetching city
                 </option>
               ) : null}
               {citiesError ? (
-                <option value='error fetching city' hidden>
+                <option value='error fetching city'>
                   error fetching city
                 </option>
               ) : null}
@@ -106,12 +106,12 @@ function App() {
                 Choose district
               </option>
               {districtsLoading ? (
-                <option value='fetching district' hidden>
+                <option value='fetching district'>
                   fetching district
                 </option>
               ) : null}
               {districtsError ? (
-                <option value='error fetching district' hidden>
+                <option value='error fetching district'>
                   error fetching district
                 </option>
               ) : null}
