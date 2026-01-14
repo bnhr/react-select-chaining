@@ -35,17 +35,30 @@ function App() {
 	// Handle selection changes
 	const handleLocationChange =
 		(key: keyof typeof locations) => (value: string) => {
-			setLocations((prev) => ({ ...prev, [key]: value }))
-			if (key === 'province') setLocations((prev) => ({ ...prev, city: '', district: '' }))
-			if (key === 'city') setLocations((prev) => ({ ...prev, district: '' }))
+			setLocations((prev) => {
+				const updates = { ...prev, [key]: value }
+				if (key === 'province') {
+					updates.city = ''
+					updates.district = ''
+				} else if (key === 'city') {
+					updates.district = ''
+				}
+				return updates
+			})
 		}
 
 	// Display loading or error states
 	if (provinceLoading) return <div>
 		<p>Loading provinces...</p>
 	</div>
-	if (provinceError || cityError || districtError) return <div>
-		<p>Error occurred while fetching data</p>
+	if (provinceError) return <div>
+		<p>Error loading provinces: {provinceError.message}</p>
+	</div>
+	if (cityError) return <div>
+		<p>Error loading cities: {cityError.message}</p>
+	</div>
+	if (districtError) return <div>
+		<p>Error loading districts: {districtError.message}</p>
 	</div>
 
 	return (
@@ -85,6 +98,18 @@ function App() {
 						loading={districtLoading}
 					/>
 				</form>
+
+				{/* Display selected location */}
+				{locations.province && locations.city && locations.district && (
+					<div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
+						<h2 className="text-lg font-semibold text-green-800">Selected Location:</h2>
+						<p className="text-green-700 mt-1">
+							{provinceData?.find(p => p.id === locations.province)?.name} → {' '}
+							{cityData?.find(c => c.id === locations.city)?.name} → {' '}
+							{districtData?.find(d => d.id === locations.district)?.name}
+						</p>
+					</div>
+				)}
 			</div>
 		</div>
 	)

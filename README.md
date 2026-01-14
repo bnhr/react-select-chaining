@@ -1,50 +1,62 @@
-# React + TypeScript + Vite
+# React Select Chaining
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application demonstrating chained select dropdowns for Indonesian administrative regions (Province → City → District) using TypeScript, Vite, and React Query.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Chained Selects**: Province selection enables city options, city selection enables district options
+- **TypeScript**: Full type safety with custom interfaces
+- **React Query**: Efficient data fetching with caching and error handling
+- **Tailwind CSS**: Modern, responsive styling
+- **Error Boundaries**: Graceful error handling for unexpected issues
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React 19
+- TypeScript
+- Vite
+- React Query (@tanstack/react-query)
+- Tailwind CSS
+- ofetch (for HTTP requests)
 
-- Configure the top-level `parserOptions` property like this:
+## API
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Uses the [EMSIFA API for Indonesian Regions](https://www.emsifa.com/api-wilayah-indonesia/api) for location data.
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   pnpm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   pnpm dev
+   ```
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Project Structure
+
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+src/
+├── App.tsx              # Main application component
+├── main.tsx             # Application entry point
+├── ErrorBoundary.tsx    # Error boundary component
+├── index.css            # Global styles
+└── locations/
+    ├── select.tsx       # Reusable select component
+    ├── types.ts         # TypeScript interfaces
+    └── use-location.ts  # React Query hooks for API calls
 ```
